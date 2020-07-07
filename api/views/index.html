@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>URL Shortener</title>
+    </head>
+    <body>
+        <h1>URL to Shorten:</h1>
+        <form action="/shortener" method="POST">
+            <fieldset>
+                <label>URL:</label>
+                <input type="text" name="originalUrl" placeholder="http://www.websitename.com/" />
+
+                <input type="submit" value="Get Short URL" />
+            </fieldset>
+        </form>
+        <br />
+        <p1>OR</p1>
+        <br />
+        <h1>Find Original URL with Shortened One</h1>
+        <form action="/shortener/" method="GET">
+            <fieldset>
+                <lable>Short URL:</lable>
+                <input type="text" name="shortUrl" placeholder="Enter your short URL" />
+
+                <input type="submit" value="Go to long URL" />
+            </fieldset>
+        </form>
+    </body>
+</html>
