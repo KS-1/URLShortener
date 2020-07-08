@@ -1,12 +1,15 @@
 version: '3'
 services:
-  web:
+  app:
+    container_name: app
+    restart: always
     build: .
     ports:
       - "8080:8080"
-    depends_on:
+    links:
       - mongo
   mongo:
+    container_name: mongo
     image: mongo
     ports:
       - "27017:27017"
