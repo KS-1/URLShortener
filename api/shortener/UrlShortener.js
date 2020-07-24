@@ -9,7 +9,6 @@ const hash = crypto.createHash('sha512');
 *   due to the shorter final string.
 */
 function createShortId(urlString) {
-    console.log('creating hash');
     var data = hash.update(urlString, 'utf-8');
     // Create hash string for the urlString passed
     var gen_hash = data.digest('hex');

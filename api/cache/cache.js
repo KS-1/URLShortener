@@ -60,8 +60,7 @@ function clearField(hashKey) {
 
 // returns url from cache
 async function getFromCache(hashKey, key) {
-    const cacheValue = await client.hget(hashKey, key);
-
+    const cacheValue = await client.get(hashKey, key);
     // If cacheValue exists reurn the parsed result
     if(cacheValue) {
         const result = JSON.parse(cacheValue);

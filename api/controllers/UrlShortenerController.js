@@ -23,6 +23,7 @@ async function getUrl (req, res) {
 
 async function createShortUrl (req, res) {
     var originalUrl = req.body;
+    const queryOptions = { originalUrl };
     originalUrl = originalUrl.originalUrl;
 
     // Check if URL is valid
@@ -32,7 +33,7 @@ async function createShortUrl (req, res) {
         // Creation logic
         try {
             // Check if the URL is already in the cache
-            //urlData = await cache.getFromCache('orginalUrl', JSON.stringify(originalUrl));
+            urlData = await cache.getFromCache('orginalUrl', JSON.stringify(queryOptions));
 
             // Check if the URL is already in db
             if(!urlData) {
