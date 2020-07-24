@@ -37,5 +37,5 @@ Note that this option requires a previously created short url
 
 
 ### Todos
-  - Add chaching of URLs to avoid frequent database lookups for previously created Short URLs to improve performance at scale
-  - Update /api/shortener/UrlShortener.js to be cryptographically secure
+  - [x] Add chaching of URLs to avoid frequent database lookups for previously created Short URLs to improve performance at scale
+  - [ ] Update /api/shortener/UrlShortener.js to be cryptographically secure
