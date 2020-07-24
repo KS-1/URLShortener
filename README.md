@@ -1,6 +1,14 @@
 # URLShortener
 node.js based url shortener api
 
+Creates a shortened URL when given a valid URL to shorten. Uses cryptographically secure hash to generate shortened
+URL code for the new url. 
+
+Short URL will look like:
+```sh
+http://www.75ea894.com
+```
+
 # To Install Locally
 Clone repository
 
@@ -38,4 +46,4 @@ Note that this option requires a previously created short url
 
 ### Todos
   - [x] Add chaching of URLs to avoid frequent database lookups for previously created Short URLs to improve performance at scale
-  - [ ] Update /api/shortener/UrlShortener.js to be cryptographically secure
+  - [x] Update /api/shortener/UrlShortener.js to be cryptographically secure

@@ -32,7 +32,7 @@ async function createShortUrl (req, res) {
         // Creation logic
         try {
             // Check if the URL is already in the cache
-            urlData = await cache.getFromCache('orginalUrl', JSON.stringify(originalUrl));
+            //urlData = await cache.getFromCache('orginalUrl', JSON.stringify(originalUrl));
 
             // Check if the URL is already in db
             if(!urlData) {
@@ -40,11 +40,11 @@ async function createShortUrl (req, res) {
             }
             // Url exists in cache or in db return already shortened url
             if (urlData) {
-                res.status(200).json("ShortUrl: " + urlData.shortUrl);
+                res.status(200).json(urlData);
             } else {
                 // URL doesn't exist in Cache or in DB
                 // Create new short url
-                const urlCode = shortCode.createShortId();
+                const urlCode = shortCode.createShortId(originalUrl);
                 shortUrl = 'http://www.' + urlCode + '.com';
                 const urlToBeSaved = { originalUrl, shortUrl, urlCode };
 
@@ -55,7 +55,7 @@ async function createShortUrl (req, res) {
                 //Add URL to cache
                 cache.addToCache('originalUrl', JSON.stringify(originalUrl), urlToBeSaved);
 
-                return res.status(200).json("ShortUrl: " + shortUrl);
+                return res.status(200).json(urlToBeSaved);
             }
         } catch (error) {
             res.status(403).json('Could not create short url');
