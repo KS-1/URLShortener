@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const UrlShorten = mongoose.model('UrlShortener');
 const validUrl = require('valid-url');
 const shortCode = require('../shortener/UrlShortener');
+const cache = require('../cache/cache');
 
 async function getUrl (req, res) {
     try {
@@ -30,19 +31,30 @@ async function createShortUrl (req, res) {
         let urlData;
         // Creation logic
         try {
+            // Check if the URL is already in the cache
+            urlData = await cache.getFromCache('orginalUrl', JSON.stringify(originalUrl));
+
             // Check if the URL is already in db
-            urlData = await UrlShorten.findOne({ "originalUrl": originalUrl });
+            if(!urlData) {
+                urlData = await UrlShorten.findOne({ "originalUrl": originalUrl });
+            }
+            // Url exists in cache or in db return already shortened url
             if (urlData) {
                 res.status(200).json("ShortUrl: " + urlData.shortUrl);
             } else {
+                // URL doesn't exist in Cache or in DB
                 // Create new short url
                 const urlCode = shortCode.createShortId();
                 shortUrl = 'http://www.' + urlCode + '.com';
                 const urlToBeSaved = { originalUrl, shortUrl, urlCode };
 
-                // Add Item to db
+                // Add URL to db
                 const url = new UrlShorten(urlToBeSaved);
                 await url.save();
+
+                //Add URL to cache
+                cache.addToCache('originalUrl', JSON.stringify(originalUrl), urlToBeSaved);
+
                 return res.status(200).json("ShortUrl: " + shortUrl);
             }
         } catch (error) {
